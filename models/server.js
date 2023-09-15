@@ -9,7 +9,7 @@ class Server {
     //llamados a mis metodos
     constructor() {
         this.app = express();
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || 3000;
         this.usuariosPatch = '/api/usuarios';
 
 
