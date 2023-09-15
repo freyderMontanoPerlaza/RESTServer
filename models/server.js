@@ -1,5 +1,5 @@
 const express = require('express');
-
+const  cors = require('cors')
 
 
 //servidor basado en clases
@@ -10,13 +10,11 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
+        this.usuariosPatch = '/api/usuarios';
 
 
-        //metodo a llamar
-
-
+        //metodos a llamar
         this.middlewares();
-
         this.routes();
 
 
@@ -25,6 +23,8 @@ class Server {
 
 
     middlewares() {
+        //CORS
+        this.app.use(cors());
         this.app.use(express.static('public'));
     }
 
@@ -32,10 +32,14 @@ class Server {
 
 
     routes() {
-        this.app.get('/api', (req, res) => {
-            res.send('Hello World')
-        });
+        //configurar mis rutas
+       this.app.use(this.usuariosPatch, require('../routes/usuarios'));
+
     }
+
+    
+
+    
 
 
 
@@ -45,7 +49,6 @@ class Server {
             console.log(`servidor corriendo en el puerto${this.port}`);
         });
     }
-
 
 }
 
