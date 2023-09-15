@@ -6,25 +6,33 @@ const express = require('express');
 class Server {
 
 
+    //llamados a mis metodos
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
 
 
-        //metodo de rutas de mi aplicacion
+        //metodo a llamar
+
+
+        this.middlewares();
+
         this.routes();
-      
+
 
     }
 
 
 
+    middlewares() {
+        this.app.use(express.static('public'));
+    }
 
 
 
 
     routes() {
-        this.app.get('/', (req, res) => {
+        this.app.get('/api', (req, res) => {
             res.send('Hello World')
         });
     }
@@ -43,4 +51,4 @@ class Server {
 
 
 
-module.exports =  Server;
+module.exports = Server;
